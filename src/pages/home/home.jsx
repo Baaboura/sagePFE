@@ -1,12 +1,29 @@
-import React from 'react';
-import Layout from '../layout';
+import React, { useRef } from "react";
+import { Line } from "react-chartjs-2";
 
-export default function Home() {
+function Home({ price, data }) {
+  const opts = {
+    tooltips: {
+      intersect: false,
+      mode: "index"
+    },
+    responsive: true,
+    maintainAspectRatio: false
+  };
+  if (price === "0.00") {
+    return <h2>please select a currency pair</h2>;
+  }
   return (
-    <Layout>
-      <div>
-        <h1>HOME PAGE</h1>
+    <layout>
+    <div className="dashboard">
+      <h2>{`$${price}`}</h2>
+
+      <div className="chart-container">
+        <Line data={data} options={opts} />
       </div>
-    </Layout>
-  )
-};
+    </div>
+    </layout>
+  );
+}
+
+export default Home;
